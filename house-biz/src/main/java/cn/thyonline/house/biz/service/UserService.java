@@ -2,6 +2,7 @@ package cn.thyonline.house.biz.service;
 
 import cn.thyonline.house.common.pojo.User;
 import cn.thyonline.house.biz.mapper.UserMapper;
+import cn.thyonline.house.common.pojo.UserExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,9 @@ public class UserService {
     private UserMapper userMapper;
 
     public List<User> selectUsers() {
-        return userMapper.selectUsers();
+        UserExample example=new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.getAllCriteria();
+        return userMapper.selectByExample(example);
     }
 }

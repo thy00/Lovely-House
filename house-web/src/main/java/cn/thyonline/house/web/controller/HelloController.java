@@ -18,15 +18,15 @@ import java.util.List;
 @Controller
 public class HelloController {
 
-    @Autowired
-    private UserService userService;
-    @GetMapping("/hello")
-    public String hello(ModelMap modelMap){
-        List<User> users = userService.selectUsers();
-        User user = users.get(0);
-        modelMap.put("user",user);
-        return "hello";
-    }
+//    @Autowired
+//    private UserService userService;
+//    @GetMapping("/hello")
+//    public String hello(ModelMap modelMap){
+//        List<User> users = userService.selectUsers();
+//        User user = users.get(0);
+//        modelMap.put("user",user);
+//        return "hello";
+//    }
 
     @GetMapping("/index")
     public String index(){

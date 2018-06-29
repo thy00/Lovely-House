@@ -17,12 +17,19 @@
     </settings>
 
     <!--配置别名-->
-    <typeAliases>
-        <typeAlias type="cn.thyonline.house.common.pojo.User" alias="user"/>
-    </typeAliases>
+    <!--<typeAliases>-->
+        <!--<typeAlias type="cn.thyonline.house.common.pojo.User" alias="user"/>-->
+    <!--</typeAliases>-->
 
     <!--配置XML文件-->
     <mappers>
-        <mapper resource="mapper/user.xml"/>
+        <mapper resource="mapper/UserMapper.xml"/>
+        <mapper resource="mapper/AgencyMapper.xml"/>
+        <mapper resource="mapper/BlogMapper.xml"/>
+        <mapper resource="mapper/CommentMapper.xml"/>
+        <mapper resource="mapper/CommunityMapper.xml"/>
+        <mapper resource="mapper/HouseMapper.xml"/>
+        <mapper resource="mapper/HouseMsgMapper.xml"/>
+        <mapper resource="mapper/HouseUserMapper.xml"/>
     </mappers>
 </configuration>
