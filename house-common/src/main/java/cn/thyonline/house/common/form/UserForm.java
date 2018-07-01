@@ -1,13 +1,7 @@
-package cn.thyonline.house.web.form;
+package cn.thyonline.house.common.form;
 
-import cn.thyonline.house.common.pojo.User;
-import cn.thyonline.house.common.result.ResultMsg;
 import lombok.Data;
-import org.apache.commons.lang3.StringUtils;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.Date;
 
 /**
  * @Description:用户表单校样

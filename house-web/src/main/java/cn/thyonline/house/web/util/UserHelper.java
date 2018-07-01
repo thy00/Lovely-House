@@ -1,7 +1,7 @@
 package cn.thyonline.house.web.util;
 
 import cn.thyonline.house.common.result.ResultMsg;
-import cn.thyonline.house.web.form.UserForm;
+import cn.thyonline.house.common.form.UserForm;
 import org.apache.commons.lang3.StringUtils;
 
 /**

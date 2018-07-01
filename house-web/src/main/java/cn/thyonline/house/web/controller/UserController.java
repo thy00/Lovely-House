@@ -3,16 +3,16 @@ package cn.thyonline.house.web.controller;
 import cn.thyonline.house.biz.service.UserService;
 import cn.thyonline.house.common.pojo.User;
 import cn.thyonline.house.common.result.ResultMsg;
-import cn.thyonline.house.web.form.UserForm;
+import cn.thyonline.house.common.form.UserForm;
 import cn.thyonline.house.web.util.UserHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -20,7 +20,7 @@ import java.util.List;
  * @Author: Created by thy
  * @Date: 2018/6/28 15:31
  */
-@RestController
+@Controller
 public class UserController {
 
     @Autowired
@@ -39,7 +39,7 @@ public class UserController {
      * @param modelMap
      * @return
      */
-    @PostMapping("/accounts/register")
+    @RequestMapping("/accounts/register")
     public String register(UserForm account, ModelMap modelMap){
         //提交到注册页
         if (account==null||account.getName()==null){
@@ -47,7 +47,10 @@ public class UserController {
         }
         //验证表单信息
         ResultMsg resultMsg = UserHelper.validate(account);
-//        if ()
-        return null;
+        if (resultMsg.isSuccess()&&userService.addAccount(account)){
+            return "/user/accounts/registerSubmit";
+        }else {
+            return "redirect:/accounts/register?"+resultMsg.asUrlParams();
+        }
     }
 }

@@ -40,6 +40,10 @@ public class ResultMsg {
         return map;
     }
 
+    /**
+     * 序列化url
+     * @return
+     */
     public String asUrlParams(){
         Map<String, String> map = asMap();
         Map<String,String> newMap=Maps.newHashMap();

@@ -8,3 +8,18 @@
 - 日志框架：slf4j+logback
 - orm框架：mybatis
 
+
+### 支持功能
+- async异步框架
+- guava工具类
+- jdk1.8表达式lambda
+- jdk1.8特性lombok
+
+## 实现模块功能
+
+> 主页
+
+> 注册功能
+- 图片上传
+- 异步注册邮件发送
+

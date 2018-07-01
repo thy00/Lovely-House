@@ -1,5 +1,6 @@
 package cn.thyonline.house.biz.service;
 
+import cn.thyonline.house.common.form.UserForm;
 import cn.thyonline.house.common.pojo.User;
 import cn.thyonline.house.biz.mapper.UserMapper;
 import cn.thyonline.house.common.pojo.UserExample;
@@ -13,16 +14,15 @@ import java.util.List;
  * @Author: Created by thy
  * @Date: 2018/6/28 15:34
  */
-@Service
-public class UserService {
+public interface UserService {
 
-    @Autowired
-    private UserMapper userMapper;
 
-    public List<User> selectUsers() {
-        UserExample example=new UserExample();
-        UserExample.Criteria criteria = example.createCriteria();
-        criteria.getAllCriteria();
-        return userMapper.selectByExample(example);
-    }
+    List<User> selectUsers();
+
+    /**
+     * 用户注册
+     * @param account
+     * @return
+     */
+    boolean addAccount(UserForm account);
 }
