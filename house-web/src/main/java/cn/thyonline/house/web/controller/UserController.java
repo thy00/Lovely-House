@@ -21,15 +21,16 @@ import java.util.List;
  * @Date: 2018/6/28 15:31
  */
 @Controller
+@RequestMapping("/accounts")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/")
-    public List<User> list(){
-        return userService.selectUsers();
-    }
+//    @GetMapping("/")
+//    public List<User> list(){
+//        return userService.selectUsers();
+//    }
 
 
     /**
@@ -39,7 +40,7 @@ public class UserController {
      * @param modelMap
      * @return
      */
-    @RequestMapping("/accounts/register")
+    @RequestMapping("/register")
     public String register(UserForm account, ModelMap modelMap){
         //提交到注册页
         if (account==null||account.getName()==null){
@@ -48,9 +49,25 @@ public class UserController {
         //验证表单信息
         ResultMsg resultMsg = UserHelper.validate(account);
         if (resultMsg.isSuccess()&&userService.addAccount(account)){
+            modelMap.put("email",account.getEmail());
             return "/user/accounts/registerSubmit";
         }else {
             return "redirect:/accounts/register?"+resultMsg.asUrlParams();
+        }
+    }
+
+    /**
+     *
+     * @param key
+     * @return
+     */
+    @GetMapping("/verify")
+    public String verify(String key){
+        boolean result=userService.enable(key);
+        if (result){
+            return "redirect:/index?"+ResultMsg.successMsg("激活成功").asUrlParams();
+        }else {
+            return "redirect:/accounts/register?"+ResultMsg.errorMsg("激活失败，请确认注册链接是否过期");
         }
     }
 }

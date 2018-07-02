@@ -34,26 +34,16 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class UserServiceImpl implements UserService {
 
-    //设置本地缓存
-    private final Cache<String,String> registerCache=CacheBuilder.newBuilder()
-            .maximumSize(100)
-            .expireAfterAccess(15,TimeUnit.MINUTES)
-            .removalListener(new RemovalListener<String, String>() {//过期时触发操作
-                @Override
-                public void onRemoval(RemovalNotification<String, String> notification) {
-//                    userMapper.del
-                }
-            }).build();
+
 
     @Autowired
     private UserMapper userMapper;
     @Autowired
     private FileService fileService;
-
-    @Value("${domain.name}")
-    private String DOMAINNAME;
     @Autowired
     private Mailservice mailservice;
+
+
 
     public List<User> selectUsers() {
         UserExample example=new UserExample();
@@ -76,33 +66,32 @@ public class UserServiceImpl implements UserService {
         //上传图片
         List<String> path = fileService.getImgPath(Lists.newArrayList(account.getAvatarFile()));
         if (!path.isEmpty()){
-            account.setAvator(path.get(0));
+            account.setAvatar(path.get(0));
         }
         //设置默认值
         User user = new User();
         BeanUtils.copyProperties(account,user);
         BeanHelper.setDefaultProp(user,User.class);
-        BeanHelper.onInsert(account);
+        BeanHelper.onInsert(user);
         user.setEnable(false);
-        user.setCreateTime(new Date());
-        //插入数据库
+        //插入数据库，先校样邮箱是否注册
+        UserExample example=new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.andEmailEqualTo(user.getEmail());
+        List<User> users = userMapper.selectByExample(example);
+        if (!users.isEmpty()){
+            return false;
+        }
         userMapper.insert(user);
         //发送邮件
-        registerNotify(user.getEmail());
-        return false;
+        mailservice.registerNotify(user.getEmail());
+        return true;
     }
 
-    /**
-     * 1、缓存key-email的关系（随机字符串）
-     * 2、借助spring mail 发送邮件
-     * 3、借助异步框架进行异步操作
-     * @param email
-     */
-    @Async
-    public void registerNotify(String email) {
-        String randomKey=RandomStringUtils.randomAlphabetic(10);//10位
-        registerCache.put(randomKey,email);//绑定
-        String url="http://"+DOMAINNAME+"/accounts/verify?key="+randomKey;
-        mailservice.sendMail("好房网平台激活邮件",url,email);
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean enable(String key) {
+        boolean result=mailservice.enable(key);
+        return false;
     }
 }

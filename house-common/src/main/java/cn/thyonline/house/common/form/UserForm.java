@@ -27,7 +27,7 @@ public class UserForm {
 
     private String newPassword;
 
-    private String avator;
+    private String avatar;
 
     private MultipartFile avatarFile;
 

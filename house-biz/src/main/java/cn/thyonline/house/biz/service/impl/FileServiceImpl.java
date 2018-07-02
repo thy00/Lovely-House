@@ -32,8 +32,9 @@ public class FileServiceImpl implements FileService {
                 try {
                     localFile=saveToLocal(file,filePath);
                     //得到相对路径
-                    String path=StringUtils.substringAfterLast(localFile.getAbsolutePath(),filePath);
-                    paths.add(path);
+                    String s = localFile.getAbsolutePath();
+                    String path = localFile.getAbsolutePath().substring(filePath.length()+2).replaceAll("\\\\","/");
+                            paths.add(path);
                 } catch (Exception e) {
                     throw new IllegalArgumentException(e);
                 }

@@ -14,4 +14,17 @@ public interface Mailservice {
      * @param email
      */
     void sendMail(String mailName, String url, String email);
+
+    /**
+     * 异步通知
+     * @param email
+     */
+    void registerNotify(String email);
+
+    /**
+     * 验证邮箱
+     * @param key
+     * @return
+     */
+    boolean enable(String key);
 }

@@ -34,7 +34,7 @@ spring:
   mail:
     host: smtp.163.com
     username: floatthy@163.com
-    password:
+    password: THY13896876025
     properties:
       mail:
         smtp:

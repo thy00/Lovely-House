@@ -25,4 +25,11 @@ public interface UserService {
      * @return
      */
     boolean addAccount(UserForm account);
+
+    /**
+     * 验证邮箱
+     * @param key
+     * @return
+     */
+    boolean enable(String key);
 }

@@ -31,8 +31,27 @@ spring:
       datetime_format: yyyy-MM-dd HH:mm:ss
       default_encoding: UTF-8
       auto_import: common/common.ftl as common
+  mail:
+    host: smtp.163.com
+    username: floatthy@163.com
+    password: THY13896876025
+    properties:
+      mail:
+        smtp:
+          auth: true #开启验证
+          starttls: #加密通讯
+            enable: true
+            required: true
+
 
 mybatis:
   config-location: classpath:/mybatis/mybatis-config.xml
 #  type-aliases-package: cn.thyonline.house.common.pojo
+
+file:
+  path: /Users/thy/opt/imgs
+
+#域名和端口
+domain:
+  name: 127.0.0.1:8090
 
